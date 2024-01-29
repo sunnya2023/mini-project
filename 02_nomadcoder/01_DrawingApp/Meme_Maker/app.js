@@ -1,5 +1,8 @@
 // const color = document.getElementById("color");
 // const colorOption = Array.from(document.getElementsByClassName("color-option"));
+const saveBtn = document.getElementById("save");
+const textInput = document.getElementById("text");
+const fileInput = document.getElementById("file");
 const color = document.getElementById("color-peeker");
 const colorOptions = Array.from(
   document.getElementsByClassName("color-option")
@@ -14,6 +17,7 @@ const ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 800;
 ctx.lineWidth = lineWidth.value;
+ctx.lineCap = "round";
 
 // ctx.fillRect()
 
@@ -113,12 +117,7 @@ function onLineWidthChange(e) {
 //   color.value = colorValue;
 // }
 
-canvas.addEventListener("mousemove", draw);
-canvas.addEventListener("mousedown", starPainting);
-canvas.addEventListener("mouseup", endPainting);
-canvas.addEventListener("mouseleave", endPainting);
-
-// lineWidth.addEventListener("change", onLineWidthChange);
+lineWidth.addEventListener("change", onLineWidthChange);
 // color.addEventListener("change", onColorChange);
 
 // colorOption.forEach((color) => color.addEventListener("click", onColorClick));
@@ -161,7 +160,54 @@ function onEraserClick() {
   isFilling = false;
   modeBtn.innerHTML = "draw";
 }
+// function onFileChange(e) {
+//   console.dir(e.target.files[0]);
+//   const file = e.target.files[0];
+//   const url = URL.createObjectURL(file);
+//   console.log(url);
+//   const image = new Image();
+//   image.src = url;
+//   image.onload = function () {
+//     ctx.drawImage(image, 0 , 0 ,800 , 800);
+//   };
+// }
 
+function onFileChange(e) {
+  // console.log(e.target.files);
+  const file = e.target.files[0];
+  const url = URL.createObjectURL(file);
+  // console.log(url);
+  const image = new Image();
+  image.src = url;
+  image.onload = function () {
+    ctx.drawImage(image, 0, 0, 800, 800);
+    fileInput.value = null;
+  };
+}
+
+function onDoubleClick(e) {
+  const text = textInput.value;
+  if (text !== "") {
+    ctx.save();
+    ctx.lineWidth = 1;
+    ctx.font = "58px serif";
+    ctx.fillText(text, e.offsetX, e.offsetY);
+    ctx.restore();
+  }
+}
+function onSaveClick() {
+  const url = canvas.toDataURL();
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "myDrawing.png";
+  a.click();
+}
+
+canvas.addEventListener("mousemove", draw);
+canvas.addEventListener("mousedown", starPainting);
+canvas.addEventListener("mouseup", endPainting);
+canvas.addEventListener("mouseleave", endPainting);
+canvas.addEventListener("dblclick", onDoubleClick);
 color.addEventListener("change", onColorChange);
 colorOptions.forEach((color) => color.addEventListener("click", onColorChoice));
 // console.log(colorOptions);
@@ -169,3 +215,5 @@ modeBtn.addEventListener("click", onModeChange);
 canvas.addEventListener("click", onCanvasChange);
 resetBtn.addEventListener("click", onResetChange);
 eraserBtn.addEventListener("click", onEraserClick);
+fileInput.addEventListener("change", onFileChange);
+saveBtn.addEventListener("click", onSaveClick);
