@@ -1,0 +1,114 @@
+:root {
+	--white: #fff;
+	--black: #000;
+	--grayf2: #f2f2f2;
+	--gray11: #111;
+	--scrollBg: #e5e5e5;
+	--scroll: #15a775;
+	--icon: bootstrap-icons;
+}
+$white: var(--white);
+$black: var(--black);
+$grayf2: var(--grayf2);
+$gray11: var(--gray11);
+$scrollBg: var(--scrollBg);
+$scroll: var(--scroll);
+$icon: var(--icon);
+
+@mixin foontType1() {
+	font-size: 1.4rem;
+	color: $gray11;
+	line-height: 1.5;
+	text-decoration: none;
+	font-weight: bold;
+}
+@mixin foontType2() {
+	font-size: 1.4rem;
+	color: $black;
+	line-height: 1.4;
+	font-weight: bold;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+html {
+	font-size: 62.5%;
+}
+body {
+	font-size: 1rem;
+	display: flex;
+	align-items: flex-end;
+	height: 100vh;
+}
+button {
+	cursor: pointer;
+}
+
+.footer {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	height: 30vh;
+	padding: 0 10rem;
+	background: $grayf2;
+}
+.family-site {
+	position: relative;
+	&__button {
+		@include foontType2();
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border-radius: 5rem;
+		width: 20rem;
+		height: 5rem;
+		padding: 0 2rem;
+		border: 1px solid$gray11;
+		text-align: left;
+		background: $white;
+
+		z-index: 10;
+		position: relative;
+
+		&::after {
+			content: "\F4FE";
+			font-family: $icon;
+			font-size: 2.5rem;
+			font-weight: normal;
+		}
+	}
+	&__list {
+		position: absolute;
+		left: 0;
+		right: 0;
+		/* width:100% */
+		bottom: 0;
+		background: $white;
+		border-radius: 4rem 4rem 2.5rem 2.5rem;
+		padding: 3rem 2rem 7rem;
+		border: 1px solid rgba(1, 1, 1, 0.2);
+
+		& ul {
+			overflow: auto;
+			height: 10rem;
+			&::-webkit-scrollbar {
+				width: 0.2rem;
+				background-color: $scrollBg;
+			}
+			&::-webkit-scrollbar-thumb {
+				/* width: 0.4rem; */
+				background-color: $scroll;
+			}
+		}
+		& li {
+			padding: 1rem 0;
+		}
+		& a {
+			@include foontType1();
+		}
+	}
+}
