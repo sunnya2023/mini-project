@@ -1,8 +1,11 @@
-const a = 5;
-const b = 2;
-const myName = "sunny";
+const loginForm = document.getElementById("login-form");
+const loginInput = loginForm.querySelector("input");
 
-console.log(a + b);
-console.log(a - b);
-console.log(a * b);
-console.log("hello" + myName);
+function onLoginSubmit(e) {
+  // console.dir(loginInput)
+  e.preventDefault()
+  const username = loginInput.value;
+  console.log(username);
+}
+
+loginForm.addEventListener("submit", onLoginSubmit);
