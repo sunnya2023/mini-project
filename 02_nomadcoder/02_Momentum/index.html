@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <title>Momentum App</title>
   </head>
   <body>
-    <form id="login-form">
+    <!-- <form id="login-form">
       <input
         type="text"
         placeholder="What is your name?"
@@ -17,7 +17,30 @@
       />
       <button type="submit">Log in</button>
     </form>
-    <h1 id="greeting" class="hidden">Hello</h1>
-    <script src="app.js"></script>
+    <h1 id="greeting" class="hidden">Hello</h1> -->
+
+    <form class="login-form" action="">
+      <input
+        id="txtInput"
+        type="text"
+        required
+        maxlength="10"
+        placeholder="Write your name"
+      />
+      <button>Login</button>
+    </form>
+    <h1 class="greeting hidden"></h1>
+    <h2 id="clock">00:00:00</h2>
+
+    <div id="quote">
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- script -->
+    <script src="js/greetings.js"></script>
+    <script src="js/clock.js"></script>
+    <script src="js/quotes.js"></script>
+    <script src="js/background.js"></script>
   </body>
 </html>
