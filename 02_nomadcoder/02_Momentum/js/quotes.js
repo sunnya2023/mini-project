@@ -48,10 +48,18 @@ const quotes = [
   },
 ];
 
+// const quote = document.querySelector("#quote span:first-child");
+// const author = document.querySelector("#quote span:last-child");
+
+// const todaysQuote = quotes[Math.floor(Math.random() * quotes.length)];
+
+// quote.textContent = todaysQuote.quote;
+// author.textContent = todaysQuote.author;
+
+const quoteContain = document.querySelector("#quote");
 const quote = document.querySelector("#quote span:first-child");
 const author = document.querySelector("#quote span:last-child");
 
-const todaysQuote = quotes[Math.floor(Math.random() * quotes.length)];
-
-quote.textContent = todaysQuote.quote;
-author.textContent = todaysQuote.author;
+const quotesArray = quotes[Math.floor(Math.random() * quotes.length)];
+quote.textContent = quotesArray.quote;
+author.textContent = quotesArray.author;
