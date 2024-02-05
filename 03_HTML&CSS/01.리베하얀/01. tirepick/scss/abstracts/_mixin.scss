@@ -1,0 +1,24 @@
+//Background
+//파일명, x축, y축, 배경색, 가로크기, 세로크기
+@mixin bg(
+  $fileName,
+  $x: null,
+  $y: null,
+  $color: null,
+  $width: null,
+  $height: null
+) {
+  background: url(#{$imageUrl}#{$fileName}) no-repeat $x $y $color;
+  background-size: $width $height;
+}
+
+//IR:null
+@mixin hide {
+  overflow: hidden;
+  display: block;
+  position: absolute;
+  border: 0;
+  width: 1px;
+  height: 1px;
+  clip: rect(1px, 1px, 1px, 1px);
+}
