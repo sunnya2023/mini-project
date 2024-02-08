@@ -13,7 +13,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 const routers = () => {
   return (
     <Routes>
-      <Route path="/" element={`<Navigate to='/home'>`} />
+      {/* <Route path="/" element={`<Navigate to='/home'>`} /> */}
       <Route path="/home" element={<Home />} />
       <Route path="/market" element={<Market />} />
       <Route path="/create" element={<Create />} />
