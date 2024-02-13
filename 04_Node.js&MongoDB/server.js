@@ -37,7 +37,5 @@ app.get("/list", async (요청, 응답) => {
 });
 
 app.get("/time", (요청, 응답) => {
-
- 
   응답.render("time.ejs", { date: new Date() });
 });
