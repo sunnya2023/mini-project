@@ -1,0 +1,130 @@
+/* body {
+  background: pink;
+}
+header {
+  padding: 7rem 2rem;
+}
+header .top_menu {
+  display: flex;
+  justify-content: space-between;
+}
+
+header .icon a {
+  display: inline-block;
+  width: 4rem;
+  height: 4rem;
+}
+
+header .icon .ico_location {
+  background: url(img/map.png) no-repeat center/2.3rem auto;
+}
+header .icon .ico_alarm {
+  background: url(img/alram.png) no-repeat center/2.3rem auto;
+}
+
+header .logo a {
+  display: block;
+  width: 9.4rem;
+  height: 3.5rem;
+  background: url(img/logo.png) no-repeat center / 100% auto;
+}
+
+.btn_program_view {
+  width: 4.5rem;
+  height: 5rem;
+  background: url(img/bg_arrow_down.png) no-repeat center bottom 1rem / 1.2rem
+    auto #fff;
+  border-radius: 0 0 4.5rem 4.5rem;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  box-shadow: 0 0.5rem 0 rgba(0, 0, 0, 0.1);
+}
+
+header nav {
+  padding: 2.5rem 0 0;
+}
+
+header nav ul {
+  display: flex;
+  justify-content: space-between;
+}
+header nav ul a {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: #fff;
+  padding: 0 1.2rem;
+  line-height: 3.5rem;
+  border-radius: 3.5rem;
+}
+
+header nav ul .active a {
+  color: #f17785;
+  background: #fff;
+} */
+
+body {
+  background-color: skyblue;
+}
+header {
+  padding: 7rem 2rem;
+}
+header .top {
+  display: flex;
+  justify-content: space-between;
+}
+header .top .logo a {
+  display: inline-block;
+  width: 9.4rem;
+  height: 3.5rem;
+  background: url(img/logo.png) no-repeat center/100% auto;
+}
+
+header .top div a {
+  display: inline-block;
+  width: 4rem;
+  height: 4rem;
+}
+
+header .top div .location {
+  background: url(img/map.png) no-repeat center / 2.3rem auto;
+}
+header .top div .alarm {
+  background: url(img/alram.png) no-repeat center / 2.3rem auto;
+}
+.menu_list {
+  padding: 2.7rem 0 0;
+}
+.menu_list ul {
+  display: flex;
+  justify-content: space-between;
+}
+.menu_list ul li a {
+  display: inline-block;
+  padding: 0 1.2rem;
+  border-radius: 3.3rem;
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 3.3rem;
+}
+
+.menu_list ul .active a {
+  background: #fff;
+  color: #f17785;
+}
+
+.btn_program_view {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4.5rem;
+  height: 5rem;
+  background: url(img/bg_arrow_down.png) no-repeat center bottom 1rem /1.2rem auto
+    #fff;
+  border-radius: 0 0 5rem 5rem;
+  box-shadow: 0 0.3rem 0.2rem rgba(0, 0, 0, 0.2);
+}

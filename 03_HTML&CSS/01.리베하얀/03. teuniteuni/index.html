@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="reset.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="js/common.js"></script>
   </head>
   <body>
     <header>
@@ -33,5 +44,38 @@
         <span class="hide">프로그램 보기</span>
       </button>
     </header>
+    <!-- Slider main container -->
+    <section>
+      <div class="swiper visual">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="visual_page1">
+              <p>
+                <span>
+                  튼튼한 신체놀이와<br />
+                  유대감 형성의 마음놀이
+                </span>
+                <em>트니캠프!</em>
+              </p>
+              <img src="img/visual_logo1.png" alt="트니트니챔프" />
+              <a href="" class="btn_go">GO</a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="visual_page2">
+              <p>
+                <span>
+                  부담없이 집에서<br />
+                  전문가와 함께 즐기는
+                </span>
+                <em>트니홈!</em>
+              </p>
+              <img src="img/visual_logo2.png" alt="트니트니챔프" />
+              <a href="" class="btn_go">GO</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </body>
 </html>
