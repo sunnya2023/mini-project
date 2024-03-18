@@ -1,7 +1,12 @@
 import { RouterProvider } from "react-router-dom";
-import { createGlobalStyle } from "styled-components";
+import { ThemeProvider, createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 import router from "./Routes/router";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { lighttheme, darkTheme } from "./theme";
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "./atom";
+
 const Globalstyle = createGlobalStyle`
  ${reset}
 
@@ -14,17 +19,21 @@ const Globalstyle = createGlobalStyle`
   }
   a{
     text-decoration: none;
-    color: inherit;
+    color: inherit
   }
  
 
 `;
 
 function App() {
+  const isDark = useRecoilValue(isDarkAtom);
   return (
     <>
-      <Globalstyle />
-      <RouterProvider router={router}></RouterProvider>
+      <ThemeProvider theme={isDark ? darkTheme : lighttheme}>
+        <Globalstyle />
+        <RouterProvider router={router}></RouterProvider>
+        <ReactQueryDevtools initialIsOpen={true} />
+      </ThemeProvider>
     </>
   );
 }

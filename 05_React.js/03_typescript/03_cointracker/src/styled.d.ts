@@ -5,7 +5,10 @@ import "styled-components";
 declare module "styled-components" {
   export interface DefaultTheme {
     textColor: string;
+    listColor?: string;
     bgColor: string;
     accentColor: string;
+    titleColor: string;
+    borderColor: string;
   }
 }
