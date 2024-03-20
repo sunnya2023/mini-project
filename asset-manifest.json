@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/mini-project/static/js/main.411b8164.js",
-    "index.html": "/mini-project/index.html",
-    "main.411b8164.js.map": "/mini-project/static/js/main.411b8164.js.map"
+    "main.js": "//mini-project/static/js/main.f048bc0e.js",
+    "index.html": "//mini-project/index.html",
+    "main.f048bc0e.js.map": "//mini-project/static/js/main.f048bc0e.js.map"
   },
   "entrypoints": [
-    "static/js/main.411b8164.js"
+    "static/js/main.f048bc0e.js"
   ]
 }
