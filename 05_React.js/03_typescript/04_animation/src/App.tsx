@@ -4,15 +4,19 @@ import {
   motion,
   useMotionValue,
   useMotionValueEvent,
+  useScroll,
   useTransform,
+  useViewportScroll,
 } from "framer-motion";
 import { useEffect, useRef } from "react";
+
 const Wrapper = styled(motion.div)`
   height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(135deg, rgb(238, 0, 153), rgb(221, 0, 238));
 `;
 
 const Box = styled(motion.div)`
@@ -77,14 +81,38 @@ const circleVariants = {
 // };
 function App() {
   // const biggerBoxRef = useRef(null);
+
   const x = useMotionValue(0);
-  const potato = useTransform(x, [-800, 0, 800], [2, 1, 0.1]);
-  useMotionValueEvent(potato, "change", (latest) => {
-    console.log("x changed to", latest);
+  //크기 변경
+  // const potato = useTransform(x, [-800, 0, 800], [2, 1, 0.1]);
+  // useMotionValueEvent(potato, "change", (latest) => {
+  //   console.log("x changed to", latest);
+  // });
+
+  //회전
+  const rotate = useTransform(x, [-800, 800], [-360, 360]);
+  //배경색 변경
+  const gradient = useTransform(
+    x,
+    [-800, 0, 800],
+    [
+      "linear-gradient(135deg, rgb(0, 210,238), rgb(0 ,83, 238))",
+      " linear-gradient(135deg, rgb(238, 0, 153), rgb(221, 0, 238))",
+      " linear-gradient(135deg, rgb(39, 252, 156), rgb(191, 242, 25))",
+    ]
+  );
+
+  //스크롤 효과
+  const { scrollY, scrollYProgress } = useScroll();
+  useMotionValueEvent("scrollY" as any, "change", (latest) => {
+    console.log("scrollY", latest);
+  });
+  useMotionValueEvent("scrollYProgress" as any, "change", (latest) => {
+    console.log("scrollYProgress", latest);
   });
   return (
-    <Wrapper>
-      <Box style={{ x, scale: potato }} drag="x" dragSnapToOrigin />
+    <Wrapper style={{ background: gradient }}>
+      <Box style={{ x, rotateZ: rotate }} drag="x" dragSnapToOrigin />
     </Wrapper>
   );
 }
