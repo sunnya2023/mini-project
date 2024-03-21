@@ -1,6 +1,12 @@
 import styled from "styled-components";
-import { delay, motion } from "framer-motion";
-import { useRef } from "react";
+import {
+  delay,
+  motion,
+  useMotionValue,
+  useMotionValueEvent,
+  useTransform,
+} from "framer-motion";
+import { useEffect, useRef } from "react";
 const Wrapper = styled(motion.div)`
   height: 100vh;
   width: 100vw;
@@ -64,26 +70,21 @@ const circleVariants = {
   },
 };
 
-const boxGesture = {
-  hover: { scale: 1.5, rotateZ: 90 },
-  click: { scale: 1, borderRadius: "100px" },
-  drag: { backgroundColor: "rgb(0, 151, 230)", transition: { duration: 10 } },
-};
+// const boxGesture = {
+//   hover: { scale: 1.5, rotateZ: 90 },
+//   click: { scale: 1, borderRadius: "100px" },
+//   drag: { backgroundColor: "rgb(0, 151, 230)", transition: { duration: 10 } },
+// };
 function App() {
-  const biggerBoxRef = useRef(null);
+  // const biggerBoxRef = useRef(null);
+  const x = useMotionValue(0);
+  const potato = useTransform(x, [-800, 0, 800], [2, 1, 0.1]);
+  useMotionValueEvent(potato, "change", (latest) => {
+    console.log("x changed to", latest);
+  });
   return (
     <Wrapper>
-      <BiggerBox ref={biggerBoxRef}>
-        <Box
-          drag
-          dragSnapToOrigin
-          dragElastic={1}
-          dragConstraints={biggerBoxRef}
-          variants={boxGesture}
-          whileHover="hover"
-          whileTap="click"
-        />
-      </BiggerBox>
+      <Box style={{ x, scale: potato }} drag="x" dragSnapToOrigin />
     </Wrapper>
   );
 }
