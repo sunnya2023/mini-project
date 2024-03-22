@@ -21,7 +21,7 @@ const Wrapper = styled(motion.div)`
 `;
 
 const Box = styled(motion.div)`
-  width: 400px;
+  /* width: 400px; */
   height: 400px;
   /* display: grid; */
   /* grid-template-columns: repeat(2, 1fr); */
@@ -69,32 +69,53 @@ const Svg = styled.svg`
     stroke-width: 2;
   }
 `;
-//variants
-const boxVariants = {
-  start: {
-    opacity: 0,
-    scale: 0.5,
-  },
-  end: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      type: "spring",
-      duration: 0.5,
-      bounce: 0.5,
-      staggerChildren: 0.5,
-    },
-  },
-};
 
-const circleVariants = {
-  start: {
-    opacity: 0,
-  },
-  end: {
-    opacity: 1,
-  },
-};
+const Grid = styled(motion.div)`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 50vw;
+  gap: 10px;
+  div:first-child,
+  div:last-child {
+    grid-column: span 2;
+  }
+`;
+const Overlay = styled(motion.div)`
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+//variants
+// const boxVariants = {
+//   start: {
+//     opacity: 0,
+//     scale: 0.5,
+//   },
+//   end: {
+//     opacity: 1,
+//     scale: 1,
+//     transition: {
+//       type: "spring",
+//       duration: 0.5,
+//       bounce: 0.5,
+//       staggerChildren: 0.5,
+//     },
+//   },
+// };
+
+// const circleVariants = {
+//   start: {
+//     opacity: 0,
+//   },
+//   end: {
+//     opacity: 1,
+//   },
+// };
 
 // const boxGesture = {
 //   hover: { scale: 1.5, rotateZ: 90 },
@@ -203,13 +224,31 @@ function App() {
   //   setVisible((prev) => (prev === 1 ? 1 : prev - 1));
   // };
 
+  //layout 효과
+  // const [clicked, setClicked] = useState(false);
+  // const toggleClicked = () => setClicked((prev) => !prev);
+
   //
-  const [clicked, setClicked] = useState(false);
-  const toggleClicked = () => setClicked((prev) => !prev);
+  const [id, setId] = useState<null | string>(null);
   return (
-    <Wrapper onClick={toggleClicked}>
-      <Box>{!clicked ? <Circle2 layoutId="circle" /> : null}</Box>
-      <Box>{clicked ? <Circle2 layoutId="circle" /> : null}</Box>
+    <Wrapper>
+      <Grid>
+        {["1", "2", "3", "4"].map((n) => (
+          <Box onClick={() => setId(n)} key={n} layoutId={n} />
+        ))}
+      </Grid>
+      <AnimatePresence>
+        {id ? (
+          <Overlay
+            onClick={() => setId(null)}
+            initial={{ backgroundColor: "rgba(0, 0, 0, 0)" }}
+            animate={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+            exit={{ backgroundColor: "rgba(0, 0, 0, 0)" }}
+          >
+            <Box layoutId={id} style={{ width: 400, height: 200 }} />
+          </Overlay>
+        ) : null}
+      </AnimatePresence>
     </Wrapper>
   );
 }
