@@ -1,11 +1,26 @@
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  updateProfile,
+} from "firebase/auth";
 import React, { useState } from "react";
-import styled from "styled-components";
+import { auth } from "./Firebase";
+import { Link, useNavigate } from "react-router-dom";
+import { FirebaseError } from "firebase/app";
+import {
+  Error,
+  Form,
+  Input,
+  Switcher,
+  Title,
+  Wrapper,
+} from "../components/Auth";
+import GithubButton from "../components/GithubButton";
 
-const Wrapper = styled.div``;
-const Form = styled.form``;
-const Input = styled.input``;
 export default function CreateAccount() {
+  const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,12 +36,40 @@ export default function CreateAccount() {
       setPassword(value);
     }
   };
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(name, email, password);
+    setError("");
+    if (isLoading || name === "" || email === "" || password === "") return;
+    try {
+      setLoading(true);
+      const credential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await sendEmailVerification(credential.user);
+      // console.log(credential.user);
+      await updateProfile(credential.user, {
+        displayName: name,
+      });
+      navigate("/");
+    } catch (e) {
+      //setError
+      if (e instanceof FirebaseError) {
+        // console.log(e.code, e.message);
+        setError(e.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+    //create an account
+    //set the name of the user
+    //redirect to the homepage
+    // console.log(name, email, password);
   };
   return (
     <Wrapper>
+      <Title>Join X</Title>
       <Form onSubmit={onSubmit}>
         <Input
           onChange={onChange}
@@ -38,10 +81,10 @@ export default function CreateAccount() {
         />
         <Input
           onChange={onChange}
-          name="name"
           value={email}
-          placeholder="Email"
+          name="email"
           type="email"
+          placeholder="Email"
           required
         />
         <Input
@@ -52,8 +95,16 @@ export default function CreateAccount() {
           type="password"
           required
         />
-        <Input type="submit" value="Create Account" />
+        <Input
+          type="submit"
+          value={isLoading ? "Loading..." : "Create Account"}
+        />
       </Form>
+      {error !== "" ? <Error>{error}</Error> : null}
+      <Switcher>
+        Already have an account? <Link to={"/login"}>Log in &rarr; </Link>
+      </Switcher>
+      <GithubButton />
     </Wrapper>
   );
 }
