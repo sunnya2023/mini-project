@@ -1,13 +1,13 @@
-import { auth } from "./Firebase";
+import styled from "styled-components";
+import Post from "../components/Post";
+
+const Wrapper = styled.div``;
 
 function Home() {
-  const logOut = () => {
-    auth.signOut();
-  };
   return (
-    <h1>
-      <button onClick={logOut}>Log Out</button>
-    </h1>
+    <Wrapper>
+      <Post />
+    </Wrapper>
   );
 }
 

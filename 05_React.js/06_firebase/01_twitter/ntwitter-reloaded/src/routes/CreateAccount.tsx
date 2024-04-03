@@ -52,6 +52,8 @@ export default function CreateAccount() {
       await updateProfile(credential.user, {
         displayName: name,
       });
+      if (!auth.currentUser?.emailVerified)
+        throw setError("이메일 인증을 완료해주세요");
       navigate("/");
     } catch (e) {
       //setError
