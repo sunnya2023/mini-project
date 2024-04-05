@@ -1,7 +1,8 @@
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, updateDoc } from "firebase/firestore";
 import { useState } from "react";
 import styled from "styled-components";
-import { auth, db } from "../routes/Firebase";
+import { auth, db, storage } from "../routes/Firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Form = styled.form`
   display: flex;
@@ -55,7 +56,8 @@ const SubmitBtn = styled.input`
   }
 `;
 function Post() {
-  const [loading, setLoading] = useState(false);
+  const MAX_SIZE = 1 * 1024 * 1024;
+  const [isLoading, setLoading] = useState(false);
   const [tweet, setTweet] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -64,21 +66,38 @@ function Post() {
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     if (files && files.length === 1) {
+      if (files[0].size > MAX_SIZE) {
+        alert("1mb 이하의 사진만 첨부 가능합니다.");
+      }
       setFile(files[0]);
     }
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const user = auth.currentUser;
-    if (!user || loading || tweet === "" || tweet.length > 180) return;
+    if (!user || isLoading || tweet === "" || tweet.length > 180) return;
     try {
       setLoading(true);
-      await addDoc(collection(db, "tweet"), {
+      const doc = await addDoc(collection(db, "tweets"), {
         tweet,
         createdAt: Date.now(),
         username: user.displayName || "Anonymous",
         userId: user.uid,
       });
+      if (file) {
+        const locationRef = ref(
+          storage,
+          `tweets/${user.uid}-${user.displayName}/${doc.id}`
+        );
+
+        const result = await uploadBytes(locationRef, file);
+        const url = await getDownloadURL(result.ref);
+        await updateDoc(doc, {
+          photo: url,
+        });
+      }
+      setTweet("");
+      setFile(null);
     } catch (e) {
       console.log(e);
     } finally {
@@ -103,7 +122,7 @@ function Post() {
         id="file"
         accept="image/*"
       />
-      <SubmitBtn value={loading ? "Posting" : "Post Tweet"} />
+      <SubmitBtn type="submit" value={isLoading ? "Posting" : "Post Tweet"} />
     </Form>
   );
 }
