@@ -1,9 +1,12 @@
 import styled from "styled-components";
 import Post from "../components/Post";
-import Timeline from "../components/timeline";
+import Timeline from "../components/Timeline";
 
 const Wrapper = styled.div`
   display: grid;
+  grid-template-rows: 1fr 5fr;
+  /* overflow-y: scroll; */
+  gap: 50px;
 `;
 
 function Home() {
