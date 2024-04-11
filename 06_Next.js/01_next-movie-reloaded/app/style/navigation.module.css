@@ -1,0 +1,25 @@
+.nav {
+  width: 30%;
+  position: fixed;
+  top: 20px;
+  margin: 0 auto;
+  left: 50%;
+  transform: translate(-50%);
+  background-color: gray;
+  padding: 20px 0;
+  border-radius: 50px;
+}
+
+.nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+.nav ul li {
+  transition: all 0.2s ease-in-out;
+}
+
+.nav ul li:hover {
+  transform: scale(1.1);
+}
